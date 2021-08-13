@@ -127,24 +127,7 @@ namespace profiler_gui {
 
     inline QString decoratedThreadName(bool _use_decorated_thread_name, const ::profiler::BlocksTreeRoot& _root, bool _hex = false)
     {
-        if (_root.got_name())
-        {
-            QString rootname(toUnicode(_root.name()));
-            if (!_use_decorated_thread_name || rootname.contains(toUnicode("thread"), Qt::CaseInsensitive))
-            {
-                if (_hex)
-                    return QString("%1 0x%2").arg(rootname).arg(_root.thread_id, 0, 16);
-                return QString("%1 %2").arg(rootname).arg(_root.thread_id);
-            }
-
-            if (_hex)
-                return QString("%1 Thread 0x%2").arg(rootname).arg(_root.thread_id, 0, 16);
-            return QString("%1 Thread %2").arg(rootname).arg(_root.thread_id);
-        }
-
-        if (_hex)
-            return QString("Thread 0x%1").arg(_root.thread_id, 0, 16);
-        return QString("Thread %1").arg(_root.thread_id);
+        return decoratedThreadName(_use_decorated_thread_name, _root, toUnicode("thread"), _hex);
     }
 
     //////////////////////////////////////////////////////////////////////////
